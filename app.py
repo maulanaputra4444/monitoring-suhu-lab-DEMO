@@ -8,8 +8,8 @@ import io
 
 # --- KONFIGURASI AWS ---
 # Access Key & Secret Key (Cek di IAM User AWS)
-AWS_ACCESS_KEY = "AKIAUFNGPNGAXPOHYWFD"
-AWS_SECRET_KEY = "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"
+AWS_ACCESS_KEY = st.secrets["AKIAUFNGPNGAXPOHYWFD"]
+AWS_SECRET_KEY = st.secrets["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"]
 REGION_NAME = "us-east-1" 
 TABLE_NAME = "DataSuhuLab"
 
