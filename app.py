@@ -81,11 +81,28 @@ try:
     col3.metric("Update Terakhir", latest_data['waktu'].strftime('%H:%M:%S'))
 
     # Membuat Grafik Garis
-    st.subheader("Tren Suhu & Kelembapan (Real-time)")
-    fig = px.line(df, x='waktu', y=['suhu', 'kelembapan'], 
-                  labels={'value': 'Nilai', 'waktu': 'Jam (WIB)'},
-                  title="Grafik Sensor DHT22")
-    st.plotly_chart(fig, use_container_width=True)
+# --- 3. GRAFIK TERPISAH ---
+    st.subheader("📈 Analisis Sensor Real-time")
+    
+    # Buat dua kolom agar grafik bisa bersandingan (opsional)
+    # Jika ingin atas-bawah, hapus bagian kolom ini
+    tab1, tab2 = st.tabs(["🌡️ Grafik Suhu", "💧 Grafik Kelembapan"])
+
+    with tab1:
+        st.write("### Tren Suhu (°C)")
+        fig_temp = px.line(df, x='waktu', y='suhu', 
+                          labels={'suhu': 'Suhu (°C)', 'waktu': 'Jam (WIB)'},
+                          color_discrete_sequence=['#FF4B4B']) # Warna Merah
+        fig_temp.update_layout(hovermode="x unified")
+        st.plotly_chart(fig_temp, use_container_width=True)
+
+    with tab2:
+        st.write("### Tren Kelembapan (%)")
+        fig_hum = px.line(df, x='waktu', y='kelembapan', 
+                         labels={'kelembapan': 'Kelembapan (%)', 'waktu': 'Jam (WIB)'},
+                         color_discrete_sequence=['#0068C9']) # Warna Biru
+        fig_hum.update_layout(hovermode="x unified")
+        st.plotly_chart(fig_hum, use_container_width=True)
 
     # Tampilkan Tabel Data
     with st.expander("Lihat Riwayat Data Lengkap"):
